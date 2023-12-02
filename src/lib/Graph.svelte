@@ -9,7 +9,7 @@
     y: Math.max(...data.map((o) => o.y)),
   };
 
-  let padding = 100;
+  let padding = 50;
 
   let dimensions = {
     x: 500,

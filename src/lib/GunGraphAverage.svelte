@@ -7,33 +7,48 @@
 
   let dimensions = {
     x: 500,
-    y: 500
-  }
+    y: 500,
+  };
 
-  let Gun = Guns.find((a) => {
+  $: Gun = Guns.find((a) => {
     return gunID === a.idString;
-  }) ?? Guns[0];
+  });
 
-  const damages = averageDamageFromRanges(Gun, 500, 0, 20, 50);
+  $: damages = averageDamageFromRanges(Gun ?? Guns[0], 500, 0, 50, 100);
 </script>
 
-<input type="text" bind:value={gunID}>
+<div class="flex flex-row gap-2 border-black border">
+  <p>Gun ID:</p>
+  <input type="text" bind:value={gunID} class="grow" />
+</div>
 
-<Graph data={damages} title="Average damage of {Gun.name}" axis={{x: "Range (Game Units)", y: "Damage"}} />
+<div class="mx-auto">
+  {#if Gun}
+    <Graph
+      data={damages}
+      title="Average damage of {Gun.name}"
+      axis={{ x: "Range (Game Units)", y: "Damage" }}
+    />
 
-<table>
-  <thead>
-    <tr>
-      <th>Range</th>
-      <th>Damage</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each damages as damage}
-      <tr>
-        <td>{damage.x}</td>
-        <td>{damage.y}</td>
-      </tr>
-    {/each}
-  </tbody>
-</table>
+    <details>
+      <summary>CSV</summary>
+      <p>Click to select all</p>
+      <div class="select-all p-4 text-xs bg-gray-800 text-gray-200">
+        <code>
+          {#each damages as damage}
+            {damage.x},{damage.y}
+            <br />
+          {/each}
+        </code>
+      </div>
+    </details>
+  {:else}
+    <p>Invalid gun id</p>
+    <details>
+      <summary>List of gun ids</summary>
+      {#each Guns as gun}
+        <li>{gun.idString}</li>
+      {/each}
+    </details>
+  {/if}
+</div>
