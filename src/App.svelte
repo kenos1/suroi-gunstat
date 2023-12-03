@@ -1,5 +1,6 @@
 <script lang="ts">
   import GunGraphAverage from "./lib/GunGraphAverage.svelte";
+  import GunGraphSimulated from "./lib/GunGraphSimulated.svelte";
 </script>
 
 <div class="max-w-prose mx-auto my-36 font-mono">
@@ -16,7 +17,7 @@
   <a class="text-blue-700" href="#gun-graph">Open Gun Graph</a>
 
   <div id="gun-graph" class="hidden target:block">
-    <GunGraphAverage />
+    <GunGraphSimulated />
   </div>
   <hr>
   <p>Made by <a class="text-blue-700" href="https://kenos.codeberg.page">Kenos</a></p>

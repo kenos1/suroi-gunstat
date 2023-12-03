@@ -9,7 +9,7 @@
     y: Math.max(...data.map((o) => o.y)),
   };
 
-  let padding = 50;
+  let padding = 30;
 
   let dimensions = {
     x: 500,
@@ -51,16 +51,25 @@
   <!-- Axis Text-->
   <g fill="gray" text-anchor="middle" class="font-mono">
     <text x={dimensions.x / 2} y={padding / 2}>{title}</text>
-    <text x={padding / 2} y={dimensions.y / 2} style="transform-box: fill-box" class="origin-center rotate-90">{axis.y}</text>
+    <text
+      x={padding / 2}
+      y={dimensions.y / 2}
+      style="transform-box: fill-box"
+      class="origin-center rotate-90">{axis.y}</text
+    >
     <text
       x={dimensions.x / 2}
       y={dimensions.y - padding / 2}
       class="text-lg text-center align-middle">{axis.x}</text
     >
     <text x={padding} y={padding - 5}>
-      {max.y}
+      {max.y.toFixed(2)}
     </text>
-    <text text-anchor="start" x={dimensions.x - padding + 5} y={dimensions.y - padding}>{max.x}</text>
+    <text
+      text-anchor="start"
+      x={dimensions.x - padding + 5}
+      y={dimensions.y - padding}>{max.x.toFixed(2)}</text
+    >
   </g>
   <!-- Axis -->
   <g stroke="gray" stroke-width="2" stroke-linecap="round">
@@ -71,5 +80,44 @@
       x2={dimensions.x - padding}
       y2={dimensions.y - padding}
     />
+  </g>
+  <!-- Hover Text -->
+  <g text-anchor="middle" class="text-[15px]">
+    {#each data as point}
+      <g>
+        <line
+          x1={point.x * scale.x + padding}
+          x2={point.x * scale.x + padding}
+          y1={padding}
+          y2={dimensions.y - padding}
+          stroke-width="5"
+          class="peer stroke-white opacity-0 hover:stroke-gray hover:opacity-100"
+        />
+        <rect
+          x={point.x * scale.x + padding - 150 / 2}
+          y={point.y * scale.y - padding + dimensions.y - 45 / 2}
+          width="150"
+          height="45"
+          fill="black"
+          class="opacity-0 peer-hover:opacity-100"
+        />
+        <text
+          x={point.x * scale.x + padding}
+          y={point.y * scale.y - padding + dimensions.y}
+          fill="white"
+          class="opacity-0 peer-hover:opacity-100"
+        >
+          {axis.x}: {point.x.toFixed(2)}
+        </text>
+        <text
+          x={point.x * scale.x + padding}
+          y={point.y * scale.y - padding + dimensions.y + 15}
+          fill="white"
+          class="opacity-0 peer-hover:opacity-100"
+        >
+          {axis.y}: {point.y.toFixed(2)}
+        </text>
+      </g>
+    {/each}
   </g>
 </svg>
