@@ -9,7 +9,7 @@
     y: Math.max(...data.map((o) => o.y)),
   };
 
-  let padding = 30;
+  let padding = 40;
 
   let dimensions = {
     x: 500,
@@ -91,7 +91,7 @@
           y1={padding}
           y2={dimensions.y - padding}
           stroke-width="5"
-          class="peer stroke-white opacity-0 hover:stroke-gray hover:opacity-100"
+          class="peer stroke-white opacity-0 hover:stroke-white"
         />
         <rect
           x={point.x * scale.x + padding - 150 / 2}

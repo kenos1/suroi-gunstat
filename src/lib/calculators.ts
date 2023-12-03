@@ -48,8 +48,7 @@ export function shootGun(gun: GunDefinition, trials: number, range: number) {
         playerRadius
       )
         ? gun.ballistics.damage
-        //? gun.ballistics.damage * clamp((1 - (range / gun.ballistics.range)), 0, 1)
-        //? gun.ballistics.damage * 0.5 ** (range / 100)
+        //? gun.ballistics.damage * 0.5 ** ((range - gun.length) / 100)
         : 0;
     }
   }
